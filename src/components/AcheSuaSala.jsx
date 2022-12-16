@@ -1,135 +1,86 @@
-import { useState } from "react";
-import Container from "react-bootstrap/Container";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
-import Table from 'react-bootstrap/Table';
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import Select from "react-select";
 
+const options = [
+  {
+    value: "Sistemas",
+    label: "Sistemas de Informação",
+    turma: "123",
+    sala: "300",
+    horas: "20 horas"
+  },
+  {
+    value: "Ciência",
+    label: "Ciência da Computação",
+    turma: "456",
+    sala: "200",
+    horas: "30 horas"
+  },
+  {
+    value: "Engenharia",
+    label: "Engenharia de Softaware",
+    turma: "789",
+    sala: "100",
+    horas: "40 horas"
+  }
+];
 
-
-
-export default function App() {
-  const [cursos, setCursos] = useState(null);
-
-  const handleSelecionar = (event) => {
-    setCursos(event.target.value);
-  };
+function App() {
+  const [selectedCourse, setSelectedCourse] = useState(null);
 
   return (
-    <Navbar bg="dark" variant="dark" expand="md">
-      <Container>
-        <Navbar.Brand as={Link} to="/">
-          Ache Sua Sala
-        </Navbar.Brand>
+    <div>
+      <Select 
+        styles= {{
+          control: (base) => ({
+            ...base,
+            width: 450,
+            height: 50
+          }),
 
-        <h2>Curso:</h2>
+          menu: (base) => ({
+            ...base,
+            width: 450,
+          }),
+        }}
 
-        <select value={cursos} onChange={handleSelecionar}>
-
-          <option value="" selected>
-            --- Escolha ---
-          </option>
-
-          <option value="institucionais">Turmas Institucionais</option>
-          <option value="sistemas">Sistemas de Informação</option>
-          <option value="ciencia">Ciência da Computação</option>
-          <option value="engenharia">Engenharia de Softaware</option>
-
-        </select>
-
-        <p></p>
-
-        {cursos !== "institucionais" ? (
-          <Table striped bordered hover variant="dark">
-            <tr class="linha">
-              <td>Disciplina</td>
-              <td>Horário</td>
-              <td>Turma</td>
-              <td>Sala</td>
-            </tr>
-
-            {cursos === "sistemas" && (
-              <tr>
-                <td>Administração e Gerência de Redes</td>
-                <td>7M</td>
-                <td>0308</td>
-                <td>Labin V - 710</td>
-              </tr>
-            )}
-
-            {cursos === "engenharia" && (
-              <tr>
-                <td>Algoritmos e Programação</td>
-                <td>2N</td>
-                <td>0300</td>
-                <td>550</td>
-              </tr>
-            )}
-
-            {cursos === "ciencia" && (
-              <tr>
-                <td>Computação Gráfica</td>
-                <td>6N</td>
-                <td>0708</td>
-                <td>Labin IV - 706</td>
-              </tr>
-            )}
-          </Table>
-        ) : (
-          <table>
-            <tr class="linha">
-              <td>Código Da Disciplina</td>
-              <td>Disciplina</td>
-              <td>Turma</td>
-              <td>Sala</td>
-              <td>Horário</td>
-            </tr>
-
-            <tr>
-              <td>128100</td>
-              <td>Anatomofisiologia</td>
-              <td>7002</td>
-              <td>207</td>
-              <td>5N</td>
-            </tr>
-
-            <tr>
-              <td>112151</td>
-              <td>Bioética e Biossegurança</td>
-              <td>0005</td>
-              <td>205</td>
-              <td>7M</td>
-            </tr>
-
-            <tr>
-              <td>134102</td>
-              <td>Fisiopatologia</td>
-              <td>7017</td>
-              <td>422</td>
-              <td>5N</td>
-            </tr>
-
-            <tr>
-              <td>118106</td>
-              <td>Libras</td>
-              <td>7020</td>
-              <td>235</td>
-              <td>4M</td>
-            </tr>
-
-            <tr>
-              <td>128101</td>
-              <td>Políticas Públicas e Gestão em Saúde</td>
-              <td>7010</td>
-              <td>320</td>
-              <td>2N</td>
-            </tr>
-          </table>
-        )}
+        options={options}
+        label={selectedCourse}
+        onChange={(selectedOption) => setSelectedCourse(selectedOption)}
+      />
       
-      </Container>  
-    </Navbar>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+
+      {selectedCourse && (
+        <table style={{ borderCollapse: "collapse" }}>
+          <thead>
+            <tr>
+              <th style={{ border: "1px solid black", fontWeight: "bold", padding: "5px", fontSize: "25px"}}><b>Disciplina</b></th>
+              <th style={{ border: "1px solid black", fontWeight: "bold", padding: "5px", fontSize: "25px"}}><b>Turma</b></th>
+              <th style={{ border: "1px solid black", fontWeight: "bold", padding: "5px", fontSize: "25px" }}><b>Sala</b></th>
+              <th style={{ border: "1px solid black", fontWeight: "bold", padding: "5px", fontSize: "25px" }}><b>Sala</b></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td style={{ border: "1px solid black", padding: "5px", fontSize: "18px"}}>{selectedCourse.label}</td>
+              <td style={{ border: "1px solid black", padding: "5px", fontSize: "18px"}}>{selectedCourse.turma}</td>
+              <td style={{ border: "1px solid black", padding: "5px", fontSize: "18px"}}>{selectedCourse.sala}</td>
+              <td style={{ border: "1px solid black", padding: "5px", fontSize: "18px"}}>{selectedCourse.horas}</td>
+            </tr>
+          </tbody>
+        </table>
+      )}
+    </div>
   );
 }
+
+export default App;
 
